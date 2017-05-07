@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Turri Tour</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_parametros_busqueda">Turri Tour</string>
+
+    <string name="punto_partida">Punto de Partida:</string>
+    <string name="punto_partida_input">Tú ubicación</string>
+    <string name="tipo_actividad">Tipo de Actividad:</string>
+    <string name="distancia_maxima">Distancia Máxima:</string>
+    <string name="duracion_maxima">Duración Máxima:</string>
+    <string name="costo_promedio">Costo Promedio:</string>
+
+    <string name="boton_rutas">Recomendar Rutas</string>
+
+    <string name="costo_item_1">Bajo</string>
+    <string name="costo_item_2">Medio</string>
+    <string name="costo_item_3">Alto</string>
+
+    <string name="distancia_item_1">5 kilómetros</string>
+    <string name="distancia_item_2">10 kilómetros</string>
+    <string name="distancia_item_3">15 kilómetros</string>
+    <string name="distancia_item_4">20 kilómetros</string>
+
+    <string name="duracion_item_1">10 minutos</string>
+    <string name="duracion_item_2">15 minutos</string>
+    <string name="duracion_item_3">25 minutos</string>
+
+    <string name="pantalla_parametros">En la presente pantalla usted deberá ingresar una serie
+                                       de parametros que permitirán al sistema recomendar rutas
+                                       turísticas en base a las características elegidas por su
+                                       persona.</string>
+    <string name="title_activity_seleccionar_rutas">Turri Tour</string>
+
+
+    <string name="pantalla_seleccionar_ruta"> A continuación, usted deberá seleccionar una de las rutas que
+                                        puede ver en la parte de abajo para proceder a ver dicha ruta
+                                        trasada en un mapa.</string>
+
+    <string name="numero">Número</string>
+
+    <string name="descripcion">Información de la ruta</string>
+
+    <string name="label_tabla">Rutas recomendadas:</string>
+    <string name="title_activity_seleccionar_ruta_logueado">SeleccionarRutaLogueadoActivity</string>
+    <string name="title_activity_filtrar_por_categoria">FiltrarPorCategoriaActivity</string>
+    <string name="title_activity_maps">Mapa</string>
+</resources>
