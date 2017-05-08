@@ -49,4 +49,7 @@
     <string name="title_activity_seleccionar_ruta_logueado">SeleccionarRutaLogueadoActivity</string>
     <string name="title_activity_filtrar_por_categoria">FiltrarPorCategoriaActivity</string>
     <string name="title_activity_maps">Mapa</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -39,9 +39,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap)
+    {
         this.mMap = googleMap;
-        this.mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); //Tipo de mapa
+
+        //Se le agregan eventos al mapa
+
         this.setInitialLocationMap();
         this.setPointsInMap();
     }//Fin del método
@@ -49,19 +52,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * Método que establece la posición inicial del mapa
      * */
-    public void setInitialLocationMap() {
+    public void setInitialLocationMap()
+    {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
             this.mMap.setMyLocationEnabled(true); //Botón para ubicar el mapa en nuestra posición
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            //return;
         }
     }//Fin del método setInitialLocationMap
 
@@ -73,8 +69,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng museo  = new LatLng(9.901,-83.672);
 
         //Agregamos los marcadores
-        this.mMap.addMarker(new MarkerOptions().title("Monumento Nacional Guayabo").snippet("El Monumento Nacional Guayabo es un área protegida de Costa Rica, conocida principalmente porque en ella se encuentra uno de los sitios arqueológicos prehispánicos más antiguos e importantes del país.").position(guayabo));
-        this.mMap.addMarker(new MarkerOptions().title("Refugio de Vida Silvestre La Marta").snippet("Refugio de Vida Silvestre La Marta").position(marta));
-        this.mMap.addMarker(new MarkerOptions().title("Museo Omar Salazar Obando").snippet("Museo.").position(museo));
+        this.mMap.addMarker(new MarkerOptions()
+                .title("Monumento Nacional Guayabo")
+                .position(guayabo));
+        this.mMap.addMarker(new MarkerOptions()
+                .title("Refugio de Vida Silvestre La Marta")
+                .position(marta));
+        this.mMap.addMarker(new MarkerOptions()
+                .title("Museo Omar Salazar Obando")
+                .position(museo));
     }//Fin del método setPointsInMap
 }//Fin de la clase
