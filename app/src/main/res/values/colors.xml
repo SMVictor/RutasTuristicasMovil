@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#400000</color>
-    <color name="colorarra">#400000</color>
+    <color name="colorarra">#d5400000</color>
     <color name="textosRojo">#6A0000</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#6A0000</color>
