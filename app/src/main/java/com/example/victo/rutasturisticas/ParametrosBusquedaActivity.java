@@ -27,6 +27,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.victo.rutasturisticas.Modules.TypeActivity;
 import com.example.victo.rutasturisticas.Modules.VolleyS;
@@ -131,19 +132,16 @@ public class ParametrosBusquedaActivity extends AppCompatActivity
                         catch(Exception e){}
 
                         Spinner acvitiesSpinner = (Spinner) findViewById(R.id.tipo_actividad_spinner);
-                        ArrayAdapter spinnerAdapter = new ArrayAdapter(ParametrosBusquedaActivity.this,
-                                android.R.layout.simple_spinner_item ,activities);
+                        ArrayAdapter spinnerAdapter = new ArrayAdapter(ParametrosBusquedaActivity.this, android.R.layout.simple_spinner_item ,activities);
                         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         acvitiesSpinner.setAdapter(spinnerAdapter);
-                    }
+                    }//Fin del método onResponse
                 }, //Fin de la clase interna anonima
                 new Response.ErrorListener()
                 {
                     @Override
                     public void onErrorResponse(VolleyError error)
-                    {
-
-                    }
+                    {}
                 }//Fin de la clase interna anonima
         );
         addToQueue(request);

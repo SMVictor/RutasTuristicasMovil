@@ -1,6 +1,7 @@
 package com.example.victo.rutasturisticas;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,16 @@ public class PrincipalFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_principal, container, false);
 
         boton = (Button) view.findViewById(R.id.btnRutasTuristicas);
+
+        /**** ESTE EVENTO DE AQUÍ ABAJO LO AGREGUÉ PARA PODER PROBAR EL MAPA LUEGO LO PUEDEN ELIMINAR ***/
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                Intent in = new Intent(PrincipalFragment.super.getActivity(),ParametrosBusquedaActivity.class);
+                startActivity(in);
+            }//Fin del evento clic
+        });
         videoV= (VideoView)view.findViewById(R.id.videoView);
         String videoPath ="android.resource://com.example.victo.rutasturisticas/" + R.raw.vturri;
         Uri uri= Uri.parse(videoPath);
