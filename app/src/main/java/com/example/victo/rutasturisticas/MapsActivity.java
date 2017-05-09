@@ -11,23 +11,32 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
+{
+    //declaración de variables globales
     private GoogleMap mMap;
+    private int idActivity;
+    private float lat,log;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
+        this.idActivity = Integer.parseInt(getIntent().getStringExtra("idActivity"));
+        this.lat = Float.parseFloat(getIntent().getStringExtra("Lat"));
+        this.log = Float.parseFloat(getIntent().getStringExtra("Long"));
 
+    }//Fin del método onCreate
 
     /**
      * Manipulates the map once available.
@@ -42,10 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap)
     {
         this.mMap = googleMap;
-
-        //Se le agregan eventos al mapa
-
-        this.setInitialLocationMap();
+        this.setInitialLocationMap(); //Establecer la posición inicial
         this.setPointsInMap();
     }//Fin del método
 
@@ -54,11 +60,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * */
     public void setInitialLocationMap()
     {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
-            this.mMap.setMyLocationEnabled(true); //Botón para ubicar el mapa en nuestra posición
-        }
+        LatLng initialPosition = new LatLng(this.lat,this.log);
+        this.mMap.addMarker(new MarkerOptions()
+            .position(initialPosition)
+            .title("Usted esta aquí")
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        this.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition,13));
     }//Fin del método setInitialLocationMap
 
     public void setPointsInMap()

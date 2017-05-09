@@ -90,6 +90,10 @@ public class SeleccionarRutaLogueadoActivity extends AppCompatActivity {
     public void verMapa(View view)
     {
         Intent intent = new Intent(this, MapsActivity.class);
+        //Valores que el activity mapa recibe en el otro lado
+        intent.putExtra("idActivity","1"); //Lo cambia aquí por el id que isted considere
+        intent.putExtra("Lat","9.878132"); //Latitud inicial
+        intent.putExtra("Long","-83.635680"); //Longitud inicial
         startActivity(intent);
     }
 
