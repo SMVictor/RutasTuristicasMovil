@@ -17,7 +17,9 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +65,6 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, MapsActivity.class );
-            startActivity(i);
         }
 
         return super.onOptionsItemSelected(item);
@@ -76,25 +76,31 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        switch (id){
 
-        } else if (id == R.id.nav_slideshow) {
+            case R.id.home:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
 
-        } else if (id == R.id.nav_soporte) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new SoporteFragment()).addToBackStack(null).commit();
+            case R.id.soporte:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new SoporteFragment()).addToBackStack(null).commit();
+                break;
 
-        } else if (id == R.id.nav_ingresar) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new IngresarFragment()).addToBackStack(null).commit();
+            case R.id.rutasGeneradas:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new ParametrosBusquedaFragment()).addToBackStack(null).commit();
+                break;
 
-        } else if (id == R.id.nav_registrar) {
-            fragmentManager.beginTransaction().replace(R.id.contenedor, new RegistrarFragment()).addToBackStack(null).commit();
+            case R.id.iniciarSesion:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new IngresarFragment()).addToBackStack(null).commit();
+                break;
+
+            case R.id.registro:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new RegistrarFragment()).addToBackStack(null).commit();
+                break;
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }

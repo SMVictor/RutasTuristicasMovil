@@ -112,7 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@color/colorarra"
+        android:background="@color/colorPrimaryDark"
         android:text="Registrar"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"

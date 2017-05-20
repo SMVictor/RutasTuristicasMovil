@@ -28,27 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ParametrosBusquedaActivity"
-            android:label="@string/title_activity_parametros_busqueda"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SeleccionarRutasActivity"
-            android:label="@string/title_activity_seleccionar_rutas"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SeleccionarRutaLogueadoActivity"
-            android:label="@string/title_activity_seleccionar_ruta_logueado"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".FiltrarPorCategoriaActivity"
-            android:label="@string/title_activity_filtrar_por_categoria"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
     </application>
 </manifest>
