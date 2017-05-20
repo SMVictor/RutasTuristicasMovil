@@ -37,22 +37,21 @@
             android:paddingTop="@dimen/activity_horizontal_margin"
             android:text="Costa Rica es un viaje, Turrialba es aventura"
             android:textAlignment="center"
-            android:textColor="@color/colorarra"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
             android:textStyle="normal|bold|italic" />
 
-        <Button
-            android:id="@+id/btnRutasTuristicas"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="0.00"
-            android:background="@color/colorarra"
-            android:elevation="10dp"
-            android:onClick="ingresoRutas"
-            android:text="Rutas Turisticas"
-            android:textColor="@color/common_google_signin_btn_text_dark_pressed"
-            android:textSize="18sp"
-            android:textStyle="bold|italic" />
+    <Button
+        android:id="@+id/btnRutasTuristicas"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="0.00"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="10dp"
+        android:text="Generar Rutas"
+        android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
 
 
 </LinearLayout>
