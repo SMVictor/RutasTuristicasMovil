@@ -21,6 +21,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.victo.rutasturisticas.Modules.VolleyS;
 
 import org.json.JSONArray;
@@ -37,7 +39,11 @@ public class ParametrosBusquedaFragment extends Fragment {
     private Button btnSeleccionarRutas;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        //Inicializamos las variables necesarias para consumir Web API
+        this.volley = VolleyS.getInstance(this.getContext());
+        this.fRequestQueue = volley.getRequestQueue();
 
         view = inflater.inflate(R.layout.fragment_parametros_busqueda, container, false);
 
@@ -85,10 +91,11 @@ public class ParametrosBusquedaFragment extends Fragment {
             }
         });
 
-        //fillActivitySpinner();
+        fillActivitySpinner();
 
         return view;
     }
+
     public void seleccionarRuta(View view)
     {
         SeleccionarRutaFragment fragment = new SeleccionarRutaFragment();
@@ -112,7 +119,7 @@ public class ParametrosBusquedaFragment extends Fragment {
      * */
     public void fillActivitySpinner()
     {
-        String url = "http://turritourapi.000webhostapp.com/activity";
+        String url = "http://turritour.000webhostapp.com/api/allactivity";
         JsonArrayRequest request = new JsonArrayRequest
                 (url,
                         new Response.Listener<JSONArray>()
@@ -143,7 +150,9 @@ public class ParametrosBusquedaFragment extends Fragment {
                         {
                             @Override
                             public void onErrorResponse(VolleyError error)
-                            {}
+                            {
+                                label.setText(error.toString());
+                            }//Fin del método que se ejecuta si ocurre un error
                         }//Fin de la clase interna anonima
                 );
         addToQueue(request);
