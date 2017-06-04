@@ -1,7 +1,5 @@
 package com.example.victo.rutasturisticas;
 
-import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,13 +35,14 @@ public class PrincipalFragment extends Fragment {
         videoV.setVideoURI(uri);
         videoV.setMediaController(new MediaController(getActivity()));
         videoV.requestFocus();
+        videoV.start();
 
         return view;
     }
 
     public void generarRutas(View view)
     {
-        ParametrosBusquedaFragment fragment = new ParametrosBusquedaFragment();
+        SearchParametersFragment fragment = new SearchParametersFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor, fragment).addToBackStack(null).commit();
     }//Fin del método

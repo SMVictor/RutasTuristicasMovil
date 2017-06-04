@@ -2,10 +2,7 @@ package com.example.victo.rutasturisticas;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -83,19 +80,19 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
 
-            case R.id.soporte:
+            case R.id.support:
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new SoporteFragment()).addToBackStack(null).commit();
                 break;
 
-            case R.id.rutasGeneradas:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new ParametrosBusquedaFragment()).addToBackStack(null).commit();
+            case R.id.generateRoutes:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new SearchParametersFragment()).addToBackStack(null).commit();
                 break;
 
-            case R.id.iniciarSesion:
-                fragmentManager.beginTransaction().replace(R.id.contenedor, new IngresarFragment()).addToBackStack(null).commit();
+            case R.id.login:
+                fragmentManager.beginTransaction().replace(R.id.contenedor, new LoginFragment()).addToBackStack(null).commit();
                 break;
 
-            case R.id.registro:
+            case R.id.register:
                 fragmentManager.beginTransaction().replace(R.id.contenedor, new RegistrarFragment()).addToBackStack(null).commit();
                 break;
         }

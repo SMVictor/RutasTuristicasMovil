@@ -8,61 +8,57 @@
 
     <string name="title_activity_parametros_busqueda">Turri Tour</string>
 
-    <string name="punto_partida">Punto de Partida:</string>
-    <string name="punto_partida_input">Tú ubicación</string>
-    <string name="tipo_actividad">Tipo de Actividad:</string>
-    <string name="distancia_maxima">Distancia Máxima:</string>
-    <string name="duracion_maxima">Duración Máxima:</string>
-    <string name="costo_promedio">Costo Promedio:</string>
+    <string name="start_point">Punto de Partida:</string>
+    <string name="start_point_input">Tú ubicación</string>
+    <string name="type_activity">Tipo de Actividad:</string>
+    <string name="max_distance">Distancia Máxima:</string>
+    <string name="max_duration">Duración Máxima:</string>
+    <string name="average_cost">Costo Promedio:</string>
 
-    <string name="boton_rutas">Recomendar Rutas</string>
+    <string name="routes_button">Recomendar Rutas</string>
 
-    <string name="costo_item_1">Bajo</string>
-    <string name="costo_item_2">Medio</string>
-    <string name="costo_item_3">Alto</string>
+    <string name="cost_item_1">Bajo</string>
+    <string name="cost_item_2">Medio</string>
+    <string name="cost_item_3">Alto</string>
 
-    <string name="distancia_item_1">5 kilómetros</string>
-    <string name="distancia_item_2">10 kilómetros</string>
-    <string name="distancia_item_3">15 kilómetros</string>
-    <string name="distancia_item_4">20 kilómetros</string>
+    <string name="distance_item_1">5 kilómetros</string>
+    <string name="distance_item_2">10 kilómetros</string>
+    <string name="distance_item_3">15 kilómetros</string>
+    <string name="distance_item_4">20 kilómetros</string>
 
-    <string name="duracion_item_1">10 minutos</string>
-    <string name="duracion_item_2">15 minutos</string>
-    <string name="duracion_item_3">25 minutos</string>
+    <string name="duration_item_1">10 minutos</string>
+    <string name="duration_item_2">15 minutos</string>
+    <string name="duration_item_3">25 minutos</string>
 
-    <string name="pantalla_parametros">En la presente pantalla usted deberá ingresar una serie
+    <string name="parameters_screem">En la presente pantalla usted deberá ingresar una serie
                                        de parametros que permitirán al sistema recomendar rutas
                                        turísticas en base a las características elegidas por su
                                        persona.</string>
 
-    <string name="title_activity_seleccionar_rutas">Turri Tour</string>
 
-
-    <string name="pantalla_seleccionar_ruta"> A continuación, usted deberá seleccionar una de las rutas que
+    <string name="route_select_screem"> A continuación, usted deberá seleccionar una de las rutas que
                                         puede ver en la parte de abajo para proceder a ver dicha ruta
                                         trasada en un mapa.</string>
 
-    <string name="numero">Número</string>
+    <string name="number">Número</string>
 
-    <string name="descripcion">Información de la ruta</string>
+    <string name="description">Información de la ruta</string>
 
-    <string name="label_tabla">Rutas recomendadas:</string>
-
-    <string name="title_activity_seleccionar_ruta_logueado">SeleccionarRutaLogueadoActivity</string>
+    <string name="label_table">Rutas recomendadas:</string>
 
     <string name="title_activity_maps">Mapa</string>
 
-    <string name="btnHome">Principal</string>
+    <string name="btn_home">Principal</string>
 
-    <string name="boton_rutasRecomendadas">Recomendar Rutas</string>
+    <string name="btn_recommended_routes">Recomendar Rutas</string>
 
-    <string name="boton_generarRutas">Generar Rutas</string>
+    <string name="btn_generate_routes">Generar Rutas</string>
 
-    <string name="btnIniciarSesion">Iniciar Sesión</string>
-    <string name="btnCerrarSesion">Cerrar Sesión</string>
-    <string name="btnRegistro">Crear una cuenta</string>
-    <string name="btnRecuperarContrasena">¿Olvidó su contraseña?</string>
-    <string name="btnSoporte">Soporte</string>
+    <string name="btn_log_in">Iniciar Sesión</string>
+    <string name="btn_log_out">Cerrar Sesión</string>
+    <string name="btn_register">Crear una cuenta</string>
+    <string name="btn_recover_password">¿Olvidó su contraseña?</string>
+    <string name="btn_support">Soporte</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

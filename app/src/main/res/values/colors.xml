@@ -3,5 +3,6 @@
     <color name="colorPrimary">#6A0000</color>
     <color name="colorPrimaryDark">#400000</color>
     <color name="colorAccent">#6A0000</color>
-    <color name="texto_blanco">#FFFFFF</color>
+    <color name="white_text">#FFFFFF</color>
+    <color name="spinner_background">#CFCFCF</color>
 </resources>

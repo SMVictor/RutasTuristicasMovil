@@ -22,7 +22,7 @@
         android:layout_width="342dp"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Sophía"
-        android:textColor="@color/texto_blanco" />
+        android:text="Sophia"
+        android:textColor="@color/white_text" />
 
 </LinearLayout>
