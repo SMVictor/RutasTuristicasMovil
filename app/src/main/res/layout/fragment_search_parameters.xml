@@ -143,7 +143,7 @@
             android:background="@color/spinner_background" />
 
         <Button
-            android:id="@+id/btnSeleccionarRutas"
+            android:id="@+id/btnSelectRoutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/spAverageCost"
