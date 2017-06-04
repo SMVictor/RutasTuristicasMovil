@@ -31,7 +31,7 @@ public class SearchParametersFragment extends Fragment {
     private VolleyS volley;
     protected RequestQueue fRequestQueue;
     private View view;
-    private Button btnSeleccionarRutas;
+    private Button btnSelectRoutes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -74,9 +74,9 @@ public class SearchParametersFragment extends Fragment {
         Toast.makeText(getActivity(), "Costo Promedio: La ruta le presentará desde sitios económicos a otros de mayor costo según su elección", Toast.LENGTH_LONG).show();
 
         this.label = (TextView) view.findViewById(R.id.textView8);
-        this.btnSeleccionarRutas = (Button) view.findViewById(R.id.btnSeleccionarRutas);
+        this.btnSelectRoutes = (Button) view.findViewById(R.id.btnSelectRoutes);
 
-        this.btnSeleccionarRutas.setOnClickListener(new View.OnClickListener() {
+        this.btnSelectRoutes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -151,14 +151,14 @@ public class SearchParametersFragment extends Fragment {
     public void addToQueue(Request request)
     {
         if (request != null)
-        {
-            request.setTag(this);
-            if (fRequestQueue == null)
-                fRequestQueue = volley.getRequestQueue();
-            request.setRetryPolicy(new DefaultRetryPolicy(
-                    60000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-            ));
-            fRequestQueue.add(request);
-        }//Fin del if
-    }//Fin del método
+    {
+        request.setTag(this);
+        if (fRequestQueue == null)
+            fRequestQueue = volley.getRequestQueue();
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                60000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+        fRequestQueue.add(request);
+    }//Fin del if
+}//Fin del método
 }
