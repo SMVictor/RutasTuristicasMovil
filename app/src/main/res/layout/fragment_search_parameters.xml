@@ -1,0 +1,160 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.victo.rutasturisticas.SearchParametersFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center">
+
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="11dp"
+            android:text="@string/parameters_screem"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textColorLink="@android:color/black"
+            android:textSize="20dp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView8"
+            android:layout_marginTop="40dp"
+            android:text="@string/start_point"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView11"
+            android:layout_alignStart="@+id/textView11"
+            android:layout_below="@+id/textView11"
+            android:layout_marginTop="31dp"
+            android:text="@string/type_activity"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView13"
+            android:layout_alignStart="@+id/textView13"
+            android:layout_below="@+id/textView13"
+            android:layout_marginTop="25dp"
+            android:text="@string/max_distance"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView14"
+            android:layout_alignStart="@+id/textView14"
+            android:layout_below="@+id/textView14"
+            android:layout_marginTop="37dp"
+            android:text="@string/max_duration"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView15"
+            android:layout_alignStart="@+id/textView15"
+            android:layout_below="@+id/textView15"
+            android:layout_marginTop="32dp"
+            android:text="@string/average_cost"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView13"
+            android:layout_alignLeft="@+id/spTypeActivity"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/spTypeActivity"
+            android:layout_toEndOf="@+id/textView11"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/start_point_input"
+            android:textColor="@android:color/black" />
+
+        <Spinner
+            android:id="@+id/spTypeActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView13"
+            android:layout_toEndOf="@+id/textView14"
+            android:layout_toRightOf="@+id/textView14"
+            android:background="@color/spinner_background" />
+
+        <Spinner
+            android:id="@+id/spMaxDistance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/textView14"
+            android:layout_toRightOf="@+id/textView14"
+            android:background="@color/spinner_background" />
+
+        <Spinner
+            android:id="@+id/spMaxDuration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spMaxDistance"
+            android:layout_alignStart="@+id/spMaxDistance"
+            android:layout_alignTop="@+id/textView15"
+            android:background="@color/spinner_background" />
+
+        <Spinner
+            android:id="@+id/spAverageCost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spMaxDuration"
+            android:layout_alignStart="@+id/spMaxDuration"
+            android:layout_alignTop="@+id/textView16"
+            android:background="@color/spinner_background" />
+
+        <Button
+            android:id="@+id/btnSeleccionarRutas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spAverageCost"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/btn_circule"
+            android:text="@string/routes_button"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -3,21 +3,21 @@
 
     <item
         android:id="@+id/home"
-        android:title="@string/btnHome" />
+        android:title="@string/btn_home" />
 
     <item
-        android:id="@+id/soporte"
-        android:title="@string/btnSoporte" />
+        android:id="@+id/support"
+        android:title="@string/btn_support" />
 
 
     <item android:title="Rutas Turisticas">
         <menu>
             <item
-                android:id="@+id/rutasGeneradas"
-                android:title="@string/boton_generarRutas" />
+                android:id="@+id/generateRoutes"
+                android:title="@string/btn_generate_routes" />
             <item
-                android:id="@+id/rutasRecomendadas"
-                android:title="@string/boton_rutasRecomendadas" />
+                android:id="@+id/recommended_routes"
+                android:title="@string/btn_recommended_routes" />
 
         </menu>
     </item>
@@ -25,15 +25,15 @@
     <item android:title="Sesión de usuario">
         <menu>
             <item
-                android:id="@+id/iniciarSesion"
-                android:title="@string/btnIniciarSesion" />
+                android:id="@+id/login"
+                android:title="@string/btn_log_in" />
             <item
-                android:id="@+id/cerrarSesion"
-                android:title="@string/btnCerrarSesion" />
+                android:id="@+id/logout"
+                android:title="@string/btn_log_out" />
 
             <item
-                android:id="@+id/registro"
-                android:title="@string/btnRegistro" />
+                android:id="@+id/register"
+                android:title="@string/btn_register" />
 
         </menu>
     </item>
