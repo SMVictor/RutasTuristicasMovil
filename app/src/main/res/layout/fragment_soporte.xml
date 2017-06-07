@@ -20,12 +20,12 @@
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nombre completo"
+        android:hint="Nombre completo"
         android:textSize="24sp" />
 
     <TextView
@@ -37,29 +37,28 @@
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:text="Correo@dominio.com"
+        android:hint="Correo@dominio.com"
         android:textSize="24sp" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Telefono"
+        android:text="Asunto"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/editTextSubject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="phone"
-        android:text="1234-5678 (opcional)"
+        android:hint="Asunto"
         android:textSize="24sp" />
 
     <TextView
@@ -71,17 +70,17 @@
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/editTextMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.54"
         android:ems="10"
+        android:hint="Mensaje..."
         android:inputType="textMultiLine"
-        android:text="Mensaje..."
         android:textSize="24sp" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonSend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.09"

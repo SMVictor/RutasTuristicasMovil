@@ -106,8 +106,10 @@ public class SearchParametersFragment extends Fragment {
      * */
     public void fillActivitySpinner()
     {
+
         String url = "http://turritour.000webhostapp.com/api/allactivity";
         JsonArrayRequest request = new JsonArrayRequest
+
                 (url,
                         new Response.Listener<JSONArray>()
                         {
