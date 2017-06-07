@@ -16,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.victo.rutasturisticas.Modules.VolleyS;
+import com.example.victo.rutasturisticas.Utilities.MyLinkedList;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -53,6 +54,16 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
         this.idActivity = getArguments().getInt("idActivity");
         this.lat = getArguments().getDouble("Lat");
         this.log = getArguments().getDouble("Long");
+
+        //We obtain the routes to be drawn. In addition, the latitude and longitude of the startpoint
+        MyLinkedList northwestRoute = (MyLinkedList) getArguments().getSerializable("northwestRoute");
+        MyLinkedList northeastRoute = (MyLinkedList) getArguments().getSerializable("northeastRoute");
+        MyLinkedList southwestRoute = (MyLinkedList) getArguments().getSerializable("southwestRoute");
+        MyLinkedList southeastRoute = (MyLinkedList) getArguments().getSerializable("southeastRoute");
+        double latitude = (double) getArguments().getDouble("latitude");
+        double longitude = (double) getArguments().getDouble("longitude");
+
+        String a = "";
 
         return  rootView;
     }

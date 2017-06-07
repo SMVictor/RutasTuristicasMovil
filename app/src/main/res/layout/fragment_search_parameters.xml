@@ -90,21 +90,6 @@
             android:textSize="18sp"
             android:textStyle="italic" />
 
-        <EditText
-            android:id="@+id/editText4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textView13"
-            android:layout_alignLeft="@+id/spTypeActivity"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignStart="@+id/spTypeActivity"
-            android:layout_toEndOf="@+id/textView11"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/start_point_input"
-            android:textColor="@android:color/black" />
-
         <Spinner
             android:id="@+id/spTypeActivity"
             android:layout_width="match_parent"
@@ -154,6 +139,16 @@
             android:textColor="@android:color/background_light"
             android:textSize="18sp"
             android:textStyle="italic" />
+
+        <Spinner
+            android:id="@+id/spStartPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/spTypeActivity"
+            android:layout_alignStart="@+id/spTypeActivity"
+            android:background="@color/spinner_background"
+            android:layout_alignTop="@+id/textView11"
+            android:layout_toEndOf="@+id/btnSelectRoutes" />
 
     </RelativeLayout>
 
