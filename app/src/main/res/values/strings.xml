@@ -21,14 +21,16 @@
     <string name="cost_item_2">Medio</string>
     <string name="cost_item_3">Alto</string>
 
-    <string name="distance_item_1">5 kilómetros</string>
-    <string name="distance_item_2">10 kilómetros</string>
-    <string name="distance_item_3">15 kilómetros</string>
-    <string name="distance_item_4">20 kilómetros</string>
+    <string name="distance_item_1">5</string>
+    <string name="distance_item_2">10</string>
+    <string name="distance_item_3">15</string>
+    <string name="distance_item_4">20</string>
 
-    <string name="duration_item_1">10 minutos</string>
-    <string name="duration_item_2">15 minutos</string>
-    <string name="duration_item_3">25 minutos</string>
+    <string name="duration_item_1">10</string>
+    <string name="duration_item_2">15</string>
+    <string name="duration_item_3">25</string>
+
+    <string name="start_point_item_1">Tú ubicación</string>
 
     <string name="parameters_screem">En la presente pantalla usted deberá ingresar una serie
                                        de parametros que permitirán al sistema recomendar rutas

@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
+
 public class PrincipalFragment extends Fragment {
      Button boton;
     VideoView videoV;
@@ -36,7 +38,6 @@ public class PrincipalFragment extends Fragment {
         videoV.setMediaController(new MediaController(getActivity()));
         videoV.requestFocus();
         videoV.start();
-
         return view;
     }
 
