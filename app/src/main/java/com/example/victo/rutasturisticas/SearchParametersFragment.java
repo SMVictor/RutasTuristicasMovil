@@ -33,6 +33,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.victo.rutasturisticas.Domain.Node;
+import com.example.victo.rutasturisticas.Domain.StartPoint;
 import com.example.victo.rutasturisticas.Domain.TypeActivity;
 import com.example.victo.rutasturisticas.Modules.VolleyS;
 import com.example.victo.rutasturisticas.Utilities.MyLinkedList;
@@ -58,11 +59,10 @@ public class SearchParametersFragment extends Fragment {
     private Spinner spMaxDistance;
     private Spinner spMaxDuration;
     private Spinner spAverageCost;
-    private double latitude;
-    private double longitude;
-    private String siteName;
     private LinkedList<Node> nodes;
-    LinkedList<TypeActivity>typeActivitiesList;
+    private LinkedList<TypeActivity>typeActivitiesList;
+    private StartPoint startPoint;
+    private LinkedList<StartPoint>startsPoints;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -82,6 +82,8 @@ public class SearchParametersFragment extends Fragment {
         spAverageCost = (Spinner) view.findViewById(R.id.spAverageCost);
         nodes = new LinkedList<Node>();
         typeActivitiesList = new LinkedList<TypeActivity>();
+        startPoint = new StartPoint();
+        startsPoints = new LinkedList<StartPoint>();
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> maxDistanceAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
@@ -117,10 +119,102 @@ public class SearchParametersFragment extends Fragment {
             }
         });
 
-        fillSpinner(spTypesActivities, "allactivity");
+        fillActivitiesSpinner();
+        fillStartPointsSpinner();
 
         return view;
     }
+    public void fillActivitiesSpinner()
+    {
+        String url = "http://turritour.000webhostapp.com/api/allactivity";
+        JsonArrayRequest request = new JsonArrayRequest
+                (url,
+                        new Response.Listener<JSONArray>()
+                        {
+                            @Override
+                            public void onResponse(JSONArray response)
+                            {
+                                LinkedList activities = new LinkedList();
+
+                                try
+                                {
+                                    //Recorremos el JSONArray
+                                    for(int i = 0; i< response.length();i++)
+                                    {
+                                        JSONObject jsonObject = response.getJSONObject(i);
+                                        activities.add(jsonObject.optString("name"));
+
+                                        //In order to stock the list of TypeActivities for futere use.
+                                        TypeActivity activity = new TypeActivity();
+                                        activity.setId(jsonObject.optInt("idtypeactivities"));
+                                        activity.setDescription(jsonObject.optString("name"));
+                                        typeActivitiesList.add(activity);
+                                    }//Fin del for
+                                }
+                                catch(Exception e){}
+
+                                ArrayAdapter spinnerAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item ,activities);
+                                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spTypesActivities.setAdapter(spinnerAdapter);
+                            }//Fin del método onResponse
+                        }, //Fin de la clase interna anonima
+                        new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error)
+                            {
+                                label.setText(error.toString());
+                            }//Fin del método que se ejecuta si ocurre un error
+                        }//Fin de la clase interna anonima
+                );
+        addToQueue(request);
+    }//Fin del método
+    public void fillStartPointsSpinner()
+    {
+        String url = "http://turritour.000webhostapp.com/api/getstartpoints";
+        JsonArrayRequest request = new JsonArrayRequest
+                (url,
+                        new Response.Listener<JSONArray>()
+                        {
+                            @Override
+                            public void onResponse(JSONArray response)
+                            {
+                                LinkedList activities = new LinkedList();
+
+                                try
+                                {
+                                    //Recorremos el JSONArray
+                                    for(int i = 0; i< response.length();i++)
+                                    {
+                                        JSONObject jsonObject = response.getJSONObject(i);
+                                        activities.add(jsonObject.optString("name"));
+
+                                        //In order to stock the list of TypeActivities for futere use.
+                                        StartPoint startPoint = new StartPoint();
+                                        startPoint.setLatitude(jsonObject.optDouble("latitude"));
+                                        startPoint.setLongitude(jsonObject.optDouble("longitude"));
+                                        startPoint.setName(jsonObject.optString("name"));
+                                        startsPoints.add(startPoint);
+                                    }//Fin del for
+                                }
+                                catch(Exception e){}
+
+                                ArrayAdapter spinnerAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item ,activities);
+                                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spStartPoint.setAdapter(spinnerAdapter);
+                            }//Fin del método onResponse
+                        }, //Fin de la clase interna anonima
+                        new Response.ErrorListener()
+                        {
+                            @Override
+                            public void onErrorResponse(VolleyError error)
+                            {
+                                label.setText(error.toString());
+                            }//Fin del método que se ejecuta si ocurre un error
+                        }//Fin de la clase interna anonima
+                );
+        addToQueue(request);
+    }//Fin del método
     public void selectRoutes(View view)
     {
         /*Code to obtain the coordinates of the start point supplied for the user.*/
@@ -133,16 +227,25 @@ public class SearchParametersFragment extends Fragment {
             if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
                 Toast.makeText(getActivity(), "Por favor proceda a realizar nuevamente sú solicitud", Toast.LENGTH_LONG).show();
-            } else {
+            }
+            else
+            {
                 locationStart();
             }
         }
         //In case that the user wants to user another startpoint
         //we obtain the startpoint selected into the spStartPoint and we recover its coordinates of the database.
         else
+        {
+            for (StartPoint startPoint: startsPoints)
             {
-                getNodes();
+                if(startPoint.getName().equalsIgnoreCase(itemSelected))
+                {
+                    this.startPoint = startPoint;
+                }
             }
+            getNodes();
+        }
     }
     private void locationStart()
     {
@@ -180,7 +283,7 @@ public class SearchParametersFragment extends Fragment {
                         loc.getLatitude(), loc.getLongitude(), 1);
                 if (!list.isEmpty()) {
                     Address DirCalle = list.get(0);
-                    siteName=DirCalle.getAddressLine(0);
+                    startPoint.setName(DirCalle.getAddressLine(0));
                 }
 
             } catch (IOException e) {
@@ -197,8 +300,8 @@ public class SearchParametersFragment extends Fragment {
             // Este metodo se ejecuta cada vez que el GPS recibe nuevas coordenadas
             // debido a la deteccion de un cambio de ubicacion
 
-            latitude=loc.getLatitude();
-            longitude=loc.getLongitude();
+            startPoint.setLatitude(loc.getLatitude());
+            startPoint.setLongitude(loc.getLongitude());
             setLocation(loc);
             getNodes();
         }
@@ -233,51 +336,6 @@ public class SearchParametersFragment extends Fragment {
     /**
      * Método que llena el spinner de activity
      * */
-    public void fillSpinner(final Spinner spinner, String route)
-    {
-        String url = "http://turritour.000webhostapp.com/api/"+route;
-        JsonArrayRequest request = new JsonArrayRequest
-                (url,
-                        new Response.Listener<JSONArray>()
-                        {
-                            @Override
-                            public void onResponse(JSONArray response)
-                            {
-                                LinkedList activities = new LinkedList();
-
-                                try
-                                {
-                                    //Recorremos el JSONArray
-                                    for(int i = 0; i< response.length();i++)
-                                    {
-                                        JSONObject jsonObject = response.getJSONObject(i);
-                                        activities.add(jsonObject.optString("name"));
-
-                                        //In order to stock the list of TypeActivities for futere use.
-                                        TypeActivity activity = new TypeActivity();
-                                        activity.setId(jsonObject.optInt("idtypeactivities"));
-                                        activity.setDescription(jsonObject.optString("name"));
-                                        typeActivitiesList.add(activity);
-                                    }//Fin del for
-                                }
-                                catch(Exception e){}
-
-                                ArrayAdapter spinnerAdapter = new ArrayAdapter(getActivity().getApplicationContext(), android.R.layout.simple_spinner_item ,activities);
-                                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                spinner.setAdapter(spinnerAdapter);
-                            }//Fin del método onResponse
-                        }, //Fin de la clase interna anonima
-                        new Response.ErrorListener()
-                        {
-                            @Override
-                            public void onErrorResponse(VolleyError error)
-                            {
-                                label.setText(error.toString());
-                            }//Fin del método que se ejecuta si ocurre un error
-                        }//Fin de la clase interna anonima
-                );
-        addToQueue(request);
-    }//Fin del método
     public void getNodes()
     {
         String url = "https://turritour.000webhostapp.com/api/getnodes";
@@ -335,8 +393,8 @@ public class SearchParametersFragment extends Fragment {
         {
             Location locationA = new Location("punto A");
 
-            locationA.setLatitude(latitude);
-            locationA.setLongitude(longitude);
+            locationA.setLatitude(startPoint.getLatitude());
+            locationA.setLongitude(startPoint.getLongitude());
 
             Location locationB = new Location("punto B");
 
@@ -373,8 +431,8 @@ public class SearchParametersFragment extends Fragment {
         {
             Location locationA = new Location("punto A");
 
-            locationA.setLatitude(latitude);
-            locationA.setLongitude(longitude);
+            locationA.setLatitude(startPoint.getLatitude());
+            locationA.setLongitude(startPoint.getLongitude());
 
             Location locationB = new Location("punto B");
 
@@ -400,8 +458,8 @@ public class SearchParametersFragment extends Fragment {
         {
             Location locationA = new Location("punto A");
 
-            locationA.setLatitude(latitude);
-            locationA.setLongitude(longitude);
+            locationA.setLatitude(startPoint.getLatitude());
+            locationA.setLongitude(startPoint.getLongitude());
 
             Location locationB = new Location("punto B");
 
@@ -422,15 +480,15 @@ public class SearchParametersFragment extends Fragment {
 
         for (int i=0; i<finalNodes.size();i++)
         {
-            if(finalNodes.getNode(i).node.getLatitude()<=latitude && finalNodes.getNode(i).node.getLongitude()>=longitude)
+            if(finalNodes.getNode(i).node.getLatitude()<=startPoint.getLatitude() && finalNodes.getNode(i).node.getLongitude()>=startPoint.getLongitude())
             {
                 northwestRoute.orderedInsert(finalNodes.getNode(i).distance, finalNodes.getNode(i).node);
             }
-            else if(finalNodes.getNode(i).node.getLatitude()<latitude && finalNodes.getNode(i).node.getLongitude()<longitude)
+            else if(finalNodes.getNode(i).node.getLatitude()<startPoint.getLatitude() && finalNodes.getNode(i).node.getLongitude()<startPoint.getLongitude())
             {
                 southwestRoute.orderedInsert(finalNodes.getNode(i).distance, finalNodes.getNode(i).node);
             }
-            else if(finalNodes.getNode(i).node.getLatitude()>latitude && finalNodes.getNode(i).node.getLongitude()>longitude)
+            else if(finalNodes.getNode(i).node.getLatitude()>startPoint.getLatitude() && finalNodes.getNode(i).node.getLongitude()>startPoint.getLongitude())
             {
                 northeastRoute.orderedInsert(finalNodes.getNode(i).distance, finalNodes.getNode(i).node);
             }
@@ -447,11 +505,9 @@ public class SearchParametersFragment extends Fragment {
         data.putSerializable("northeastRoute", northeastRoute);
         data.putSerializable("southwestRoute", southwestRoute);
         data.putSerializable("southeastRoute", southeastRoute);
-        data.putDouble("latitude", latitude);
-        data.putDouble("longitude", longitude);
+        data.putSerializable("startpoint", startPoint);
         fragment.setArguments(data);
     }
-
     /**
      * Método que manda a ejecutar las solicitudes
      * */
@@ -518,5 +574,4 @@ public class SearchParametersFragment extends Fragment {
         }
         return position;
     }
-
 }

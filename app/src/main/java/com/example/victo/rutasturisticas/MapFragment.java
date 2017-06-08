@@ -15,6 +15,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.victo.rutasturisticas.Domain.StartPoint;
 import com.example.victo.rutasturisticas.Modules.VolleyS;
 import com.example.victo.rutasturisticas.Utilities.MyLinkedList;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,6 +41,11 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
     private double lat,log;
     private VolleyS volley;
     protected RequestQueue fRequestQueue;
+    private MyLinkedList northwestRoute;
+    private MyLinkedList northeastRoute;
+    private MyLinkedList southwestRoute;
+    private MyLinkedList southeastRoute;
+    private StartPoint startPoint;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,12 +62,11 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
         this.log = getArguments().getDouble("Long");
 
         //We obtain the routes to be drawn. In addition, the latitude and longitude of the startpoint
-        MyLinkedList northwestRoute = (MyLinkedList) getArguments().getSerializable("northwestRoute");
-        MyLinkedList northeastRoute = (MyLinkedList) getArguments().getSerializable("northeastRoute");
-        MyLinkedList southwestRoute = (MyLinkedList) getArguments().getSerializable("southwestRoute");
-        MyLinkedList southeastRoute = (MyLinkedList) getArguments().getSerializable("southeastRoute");
-        double latitude = (double) getArguments().getDouble("latitude");
-        double longitude = (double) getArguments().getDouble("longitude");
+        northwestRoute = (MyLinkedList) getArguments().getSerializable("northwestRoute");
+        northeastRoute = (MyLinkedList) getArguments().getSerializable("northeastRoute");
+        southwestRoute = (MyLinkedList) getArguments().getSerializable("southwestRoute");
+        southeastRoute = (MyLinkedList) getArguments().getSerializable("southeastRoute");
+        startPoint = (StartPoint) getArguments().getSerializable("startpoint");
 
         String a = "";
 

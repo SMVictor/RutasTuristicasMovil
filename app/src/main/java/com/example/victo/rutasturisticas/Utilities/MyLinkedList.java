@@ -78,13 +78,16 @@ public class MyLinkedList implements Serializable {
         int count = 0;
         MyNode aux= raiz;
 
-        while (count<point && aux.nextNode!=null)
+        if(raiz!=null)
         {
-            aux=aux.nextNode;
-            count+=1;
+            while (count<point && aux.nextNode!=null)
+            {
+                aux=aux.nextNode;
+                count+=1;
+            }
+            aux.nextNode=null;
+            counter=count;
         }
-        aux.nextNode=null;
-        counter=count;
     }
     public MyNode getNode(int position)
     {
