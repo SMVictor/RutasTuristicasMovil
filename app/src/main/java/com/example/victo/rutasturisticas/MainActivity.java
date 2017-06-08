@@ -94,8 +94,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-        }
+        if (id == R.id.action_english) {}
+        if (id == R.id.action_spanish) {}
+        if (id == R.id.action_german) {}
 
         return super.onOptionsItemSelected(item);
     }
@@ -202,9 +203,12 @@ public class MainActivity extends AppCompatActivity
                                     {
                                         View hView = navigationView.getHeaderView(0);
                                         TextView tvUserNameHeader = (TextView)hView.findViewById(R.id.tvUserNameHeader);
-                                        ImageView ivUserNameHeader = (ImageView) hView.findViewById(R.id.ivUserNameHeader);
-                                        ivUserNameHeader.setImageResource(R.drawable.foto);// Cargar foto del hosting
-                                        tvUserNameHeader.setText("Sophia");//sustituir a Sophia por userName
+                                        try {
+                                            Glide.with(getApplicationContext()).load(jsonObject.optString("profilphoto")).into((ImageView) hView.findViewById(R.id.ivUserNameHeader));
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        tvUserNameHeader.setText(userName);//sustituir a Sophia por userName
                                         session = true;
                                         fragmentManager.popBackStack();
                                         Toast.makeText(getApplicationContext(), "Bienvenido "+userName, Toast.LENGTH_LONG).show();
