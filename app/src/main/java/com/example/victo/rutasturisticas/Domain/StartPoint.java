@@ -6,7 +6,8 @@ import java.io.Serializable;
  * Created by victo on 8/6/2017.
  */
 
-public class StartPoint implements Serializable{
+public class StartPoint implements Serializable
+{
 
     private double latitude;
     private double longitude;
