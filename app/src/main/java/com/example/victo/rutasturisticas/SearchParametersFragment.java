@@ -47,7 +47,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-public class SearchParametersFragment extends Fragment {
+public class SearchParametersFragment extends Fragment
+{
 
     private TextView label;
     private VolleyS volley;
@@ -124,6 +125,7 @@ public class SearchParametersFragment extends Fragment {
 
         return view;
     }
+
     public void fillActivitiesSpinner()
     {
         String url = "http://turritour.000webhostapp.com/api/allactivity";
@@ -169,6 +171,7 @@ public class SearchParametersFragment extends Fragment {
                 );
         addToQueue(request);
     }//Fin del método
+
     public void fillStartPointsSpinner()
     {
         String url = "http://turritour.000webhostapp.com/api/getstartpoints";
@@ -215,6 +218,7 @@ public class SearchParametersFragment extends Fragment {
                 );
         addToQueue(request);
     }//Fin del método
+
     public void selectRoutes(View view)
     {
         /*Code to obtain the coordinates of the start point supplied for the user.*/
@@ -247,6 +251,7 @@ public class SearchParametersFragment extends Fragment {
             getNodes();
         }
     }
+
     private void locationStart()
     {
 
@@ -497,6 +502,7 @@ public class SearchParametersFragment extends Fragment {
                     southeastRoute.orderedInsert(finalNodes.getNode(i).distance, finalNodes.getNode(i).node);
                 }
         }
+
         MapFragment fragment = new MapFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor, fragment).addToBackStack(null).commit();
