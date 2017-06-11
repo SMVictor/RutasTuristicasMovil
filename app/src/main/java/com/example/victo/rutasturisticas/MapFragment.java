@@ -39,10 +39,7 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
     private int idActivity;
     private VolleyS volley;
     protected RequestQueue fRequestQueue;
-    private MyLinkedList northwestRoute;
-    private MyLinkedList northeastRoute;
-    private MyLinkedList southwestRoute;
-    private MyLinkedList southeastRoute;
+    private MyLinkedList route;
     private StartPoint startPoint;
 
     @Override
@@ -58,10 +55,7 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
         // this.idActivity = getArguments().getInt("idActivity");
 
         //We obtain the routes to be drawn. In addition, the latitude and longitude of the startpoint
-        northwestRoute = (MyLinkedList) getArguments().getSerializable("northwestRoute");
-        northeastRoute = (MyLinkedList) getArguments().getSerializable("northeastRoute");
-        southwestRoute = (MyLinkedList) getArguments().getSerializable("southwestRoute");
-        southeastRoute = (MyLinkedList) getArguments().getSerializable("southeastRoute");
+        route = (MyLinkedList) getArguments().getSerializable("route");
         startPoint = (StartPoint) getArguments().getSerializable("startpoint");
         return  rootView;
     }//Fin del método onCreateView
@@ -110,6 +104,13 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
      * */
     public void setPointsInMap()
     {
+        for(int i = 0; i < route.size(); i++)
+        {
+            this.mMap.addMarker(new MarkerOptions()
+                    .title(route.getNode(i).node.getName())
+                    .position(new LatLng(route.getNode(i).node.getLatitude(),route.getNode(i).node.getLongitude()))).setTag(i);
+        }
+        /*
         //Creamos las coordenadas
         LatLng marta  = new LatLng(9.786,-83.691);
         LatLng guayabo  = new LatLng(9.9727991,-83.6908688);
@@ -124,7 +125,7 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
                 .position(marta)).setTag(2);
         this.mMap.addMarker(new MarkerOptions()
                 .title("Museo Omar Salazar Obando")
-                .position(museo)).setTag(3);
+                .position(museo)).setTag(3);*/
     }//Fin del método setPointsInMap
 
     /**

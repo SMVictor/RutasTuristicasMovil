@@ -10,15 +10,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import com.example.victo.rutasturisticas.Domain.StartPoint;
+import com.example.victo.rutasturisticas.Utilities.MyLinkedList;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SelectRouteFragment extends Fragment {
 
-    private ListView rutasListView;
-    private List<ArrayList<String>> rutas;
-    private int posicion;
+    private ListView routesListView;
+    private List<ArrayList<String>> routes;
+    private int pos;
+    private MyLinkedList northwestRoute;
+    private MyLinkedList northeastRoute;
+    private MyLinkedList southwestRoute;
+    private MyLinkedList southeastRoute;
+    private StartPoint startPoint;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,29 +33,40 @@ public class SelectRouteFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_select_route, container, false);
 
-        this.rutasListView = (ListView) view.findViewById(R.id.lvRoutes);
+        routesListView = (ListView) view.findViewById(R.id.lvRoutes);
+        //We obtain the routes to be drawn. In addition, the latitude and longitude of the startpoint
+        northwestRoute = (MyLinkedList) getArguments().getSerializable("northwestRoute");
+        northeastRoute = (MyLinkedList) getArguments().getSerializable("northeastRoute");
+        southwestRoute = (MyLinkedList) getArguments().getSerializable("southwestRoute");
+        southeastRoute = (MyLinkedList) getArguments().getSerializable("southeastRoute");
+        startPoint = (StartPoint) getArguments().getSerializable("startpoint");
 
-        rutas = new ArrayList<ArrayList<String>>();
+        routes = new ArrayList<ArrayList<String>>();
 
-        ArrayList<String> prueba1 = new ArrayList<String>();
-        prueba1.add("1");
-        prueba1.add("Ruta de Aventura: En esta ruta podrá encontrar difrentes sitios donde practicar actividades al aire libre y deportes extrmos.");
+        ArrayList<String> routeOne = new ArrayList<String>();
+        routeOne.add("1");
+        routeOne.add("Ruta Noroeste");
 
 
-        ArrayList<String> prueba2 = new ArrayList<String>();
-        prueba2.add("2");
-        prueba2.add("Ruta de senderismo: En esta ruta podrá recorrer diferentes senderos naturales de la zona de turrialba, apreciar la flora y fauna del lugar y estar en armonía con la naturaleza.");
+        ArrayList<String> routeTwo = new ArrayList<String>();
+        routeTwo.add("2");
+        routeTwo.add("Ruta Noreste");
 
-        ArrayList<String> prueba3 = new ArrayList<String>();
-        prueba3.add("3");
-        prueba3.add("Ruta de senderismo: En esta ruta podrá recorrer diferentes senderos naturales de la zona de turrialba, apreciar la flora y fauna del lugar y estar en armonía con la naturaleza.");
+        ArrayList<String> routeThree = new ArrayList<String>();
+        routeThree.add("3");
+        routeThree.add("Ruta Suroeste");
 
-        rutas.add(prueba1);
-        rutas.add(prueba2);
-        rutas.add(prueba3);
+        ArrayList<String> routeFour = new ArrayList<String>();
+        routeFour.add("4");
+        routeFour.add("Ruta Sureste");
 
-        RutaAdapter rutaAdapter = new RutaAdapter(getActivity().getApplicationContext(), R.layout.row, rutas);
-        rutasListView.setAdapter(rutaAdapter);
+        routes.add(routeOne);
+        routes.add(routeTwo);
+        routes.add(routeThree);
+        routes.add(routeFour);
+
+        RutaAdapter rutaAdapter = new RutaAdapter(getActivity().getApplicationContext(), R.layout.row, routes);
+        routesListView.setAdapter(rutaAdapter);
 
         return view;
 
@@ -60,24 +78,38 @@ public class SelectRouteFragment extends Fragment {
         fragmentManager.beginTransaction().replace(R.id.contenedor, fragment).addToBackStack(null).commit();
 
         Bundle data = new Bundle();
-        data.putInt("idActivity", 1);
-        data.putDouble("Lat", 9.878132);
-        data.putDouble("Long",-83.635680);
+
+        switch (pos)
+        {
+            case 0:
+                data.putSerializable("route", northwestRoute);
+                break;
+            case 1:
+                data.putSerializable("route", northeastRoute);
+                break;
+            case 2:
+                data.putSerializable("route", southwestRoute);
+                break;
+            default:
+                data.putSerializable("route", southeastRoute);
+                break;
+        }
+        data.putSerializable("startpoint", startPoint);
         fragment.setArguments(data);
     }
 
     public class RutaAdapter extends ArrayAdapter {
 
-        private List<ArrayList<String>> rutas;
+        private List<ArrayList<String>> routes;
         private int resources;
         private LayoutInflater inflater;
-        private TextView ruta;
-        private TextView descripcionRuta;;
+        private TextView route;
+        private TextView routeDescription;;
 
         public RutaAdapter(Context context, int resource,  List<ArrayList<String>> objects) {
 
             super(context, resource, objects);
-            rutas = objects;
+            routes = objects;
             resources = resource;
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -89,17 +121,17 @@ public class SelectRouteFragment extends Fragment {
                 convertView = inflater.inflate(resources, null);
             }
 
-            ruta = (TextView) convertView.findViewById(R.id.ruta);
-            descripcionRuta = (TextView) convertView.findViewById(R.id.descripcionRuta);
+            route = (TextView) convertView.findViewById(R.id.ruta);
+            routeDescription = (TextView) convertView.findViewById(R.id.descripcionRuta);
 
-            ruta.setText(rutas.get(position).get(0));
-            descripcionRuta.setText(rutas.get(position).get(1));
+            route.setText(routes.get(position).get(0));
+            routeDescription.setText(routes.get(position).get(1));
 
-            descripcionRuta.setOnClickListener(new View.OnClickListener() {
+            routeDescription.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    posicion = position;
+                    pos = position;
                     verMapa(view);
                 }
             });
