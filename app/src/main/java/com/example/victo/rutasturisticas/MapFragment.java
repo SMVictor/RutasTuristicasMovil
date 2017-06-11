@@ -1,10 +1,7 @@
 package com.example.victo.rutasturisticas;
 
-import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +33,6 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
 {
     //Declaración de variables globales
     private GoogleMap mMap;
-    private int idActivity;
     private VolleyS volley;
     protected RequestQueue fRequestQueue;
     private MyLinkedList route;
@@ -87,6 +83,9 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
                                     NodeFragment fragment = new NodeFragment();
                                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                     fragmentManager.beginTransaction().replace(R.id.contenedor, fragment).addToBackStack(null).commit();
+                                    Bundle data = new Bundle();
+                                    data.putInt("idNode",idNode);
+                                    fragment.setArguments(data);
                                 }//Fin del if
                                 return false;
                             }//Fin del método onMarkerClick
