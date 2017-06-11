@@ -134,7 +134,7 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
                         .position(new LatLng(route.getNode(i).node.getLatitude(),route.getNode(i).node.getLongitude())))
                         .setTag(route.getNode(i).node.getId());
                 this.urlAPIDirections += route.getNode(i).node.getLatitude() + "," + route.getNode(i).node.getLongitude();
-                if(i == (route.size()-1)){this.urlAPIDirections += "|";}
+                if(i != (route.size()-1)){this.urlAPIDirections += "|";}
             }//Fin del for
         }//Fin del if
         else
@@ -152,8 +152,6 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
      * */
     public void createRoute()
     {
-        String url = "https://maps.googleapis.com/maps/api/directions/json?origin=9.878132,-83.635680&destination=9.9727991,-83.6908688&waypoints=9.9013114,-83.672462&key=AIzaSyDAJR9mkRkdrTsO5yjbBaGQxPjOzXuyfUQ";
-
         JsonObjectRequest request = new JsonObjectRequest
             (Request.Method.GET, this.urlAPIDirections, "",
                     new Response.Listener<JSONObject>()
