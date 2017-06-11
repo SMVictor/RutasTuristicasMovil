@@ -503,7 +503,7 @@ public class SearchParametersFragment extends Fragment
                 }
         }
 
-        MapFragment fragment = new MapFragment();
+        SelectRouteFragment fragment = new SelectRouteFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor, fragment).addToBackStack(null).commit();
         Bundle data = new Bundle();
