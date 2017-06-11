@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.victo.rutasturisticas.Domain.StartPoint;
 import com.example.victo.rutasturisticas.Utilities.MyLinkedList;
 import java.util.ArrayList;
@@ -34,13 +36,14 @@ public class SelectRouteFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_select_route, container, false);
 
         routesListView = (ListView) view.findViewById(R.id.lvRoutes);
-        //We obtain the routes to be drawn. In addition, the latitude and longitude of the startpoint
+        //It is obtained the routes to be drawn. In addition, the latitude and longitude of the startpoint
         northwestRoute = (MyLinkedList) getArguments().getSerializable("northwestRoute");
         northeastRoute = (MyLinkedList) getArguments().getSerializable("northeastRoute");
         southwestRoute = (MyLinkedList) getArguments().getSerializable("southwestRoute");
         southeastRoute = (MyLinkedList) getArguments().getSerializable("southeastRoute");
         startPoint = (StartPoint) getArguments().getSerializable("startpoint");
 
+        // It is loaded the list of routes whit the values to show in the layout with the next routes
         routes = new ArrayList<ArrayList<String>>();
 
         ArrayList<String> routeOne = new ArrayList<String>();
@@ -65,14 +68,20 @@ public class SelectRouteFragment extends Fragment {
         routes.add(routeThree);
         routes.add(routeFour);
 
-        RutaAdapter rutaAdapter = new RutaAdapter(getActivity().getApplicationContext(), R.layout.row, routes);
+        // It is loaded the list of routes in the layout
+        RouteAdapter rutaAdapter = new RouteAdapter(getActivity().getApplicationContext(), R.layout.row, routes);
         routesListView.setAdapter(rutaAdapter);
 
         return view;
 
     }
+    /*
+    * This method takes the selected route and starting point and sends them to the map view.
+    */
     public void verMapa(View view)
     {
+        Toast.makeText(getActivity(), "Mostrando ruta...", Toast.LENGTH_LONG).show();
+
         MapFragment fragment = new MapFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor, fragment).addToBackStack(null).commit();
@@ -98,7 +107,8 @@ public class SelectRouteFragment extends Fragment {
         fragment.setArguments(data);
     }
 
-    public class RutaAdapter extends ArrayAdapter {
+    /*Internal class. Receives an array that will be iterate and for each element it will take actions in recurrent form.*/
+    public class RouteAdapter extends ArrayAdapter {
 
         private List<ArrayList<String>> routes;
         private int resources;
@@ -106,7 +116,7 @@ public class SelectRouteFragment extends Fragment {
         private TextView route;
         private TextView routeDescription;;
 
-        public RutaAdapter(Context context, int resource,  List<ArrayList<String>> objects) {
+        public RouteAdapter(Context context, int resource,  List<ArrayList<String>> objects) {
 
             super(context, resource, objects);
             routes = objects;
@@ -114,6 +124,7 @@ public class SelectRouteFragment extends Fragment {
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
+        // Iterator method
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             if(convertView == null){
@@ -121,6 +132,8 @@ public class SelectRouteFragment extends Fragment {
                 convertView = inflater.inflate(resources, null);
             }
 
+            //For each element in the list it will be taken the number and route description,
+            // and this values will be load in the listview of the layout.
             route = (TextView) convertView.findViewById(R.id.ruta);
             routeDescription = (TextView) convertView.findViewById(R.id.descripcionRuta);
 

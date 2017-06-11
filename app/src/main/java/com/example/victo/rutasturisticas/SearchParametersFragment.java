@@ -64,16 +64,19 @@ public class SearchParametersFragment extends Fragment
     private LinkedList<TypeActivity>typeActivitiesList;
     private StartPoint startPoint;
     private LinkedList<StartPoint>startsPoints;
+    private LocationManager mlocManager;
+    private Localization local;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        //Inicializamos las variables necesarias para consumir Web API
+        //It is initialized the necessary variables to consume the Web API
         this.volley = VolleyS.getInstance(this.getContext());
         this.fRequestQueue = volley.getRequestQueue();
 
         view = inflater.inflate(R.layout.fragment_search_parameters, container, false);
 
+        //It is obtained the variables supplied through the user interface.
         label = (TextView) view.findViewById(R.id.textView8);
         btnSelectRoutes = (Button) view.findViewById(R.id.btnSelectRoutes);
         spStartPoint = (Spinner) view.findViewById(R.id.spStartPoint);
@@ -126,6 +129,10 @@ public class SearchParametersFragment extends Fragment
         return view;
     }
 
+    /*
+    *The next two methods it are responsible for load the spinners of the types activities
+    * and start points respectively.
+    */
     public void fillActivitiesSpinner()
     {
         String url = "http://turritour.000webhostapp.com/api/allactivity";
@@ -218,9 +225,14 @@ public class SearchParametersFragment extends Fragment
                 );
         addToQueue(request);
     }//Fin del método
-
+    /*
+    *Method responsible for determinate if start point is the current user position or another
+    * start point, and it takes the acctions for every case.
+    */
     public void selectRoutes(View view)
     {
+        Toast.makeText(getActivity(), "Creando rutas...", Toast.LENGTH_LONG).show();
+
         /*Code to obtain the coordinates of the start point supplied for the user.*/
 
         // In case that the user wants to use his/her actual position as start point.
@@ -251,23 +263,32 @@ public class SearchParametersFragment extends Fragment
             getNodes();
         }
     }
-
+    /*
+   *Method responsible for determinate the current user position coordinates.
+   */
     private void locationStart()
     {
 
-        LocationManager mlocManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        Localizacion Local = new Localizacion();
+        // LocationListener Manager
+        mlocManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        //Lacation Listeber Object
+        local = new Localization();
+
+        //It is verified if the user grants the permissions necessary to use her/his current position.
         final boolean gpsEnabled = mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (!gpsEnabled) {
             Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(settingsIntent);
         }
+
+        //It is verified if the gps is activated.
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION,}, 1000);
             return;
         }
-        mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) Local);
-        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) Local);
+        // It is initialized the LocationListener Manager
+        mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, (LocationListener) local);
+        mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) local);
     }
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
     {
@@ -278,9 +299,10 @@ public class SearchParametersFragment extends Fragment
             }
         }
     }
+    //This method obtains the street address from latitude and longitude and stored in the "startPoint" object.
     public void setLocation(Location loc)
     {
-        //Obtener la direccion de la calle a partir de la latitud y la longitud
+        //The street address is obtained from latitude and longitude and stored in the "startPoint" object.
         if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0) {
             try {
                 Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
@@ -296,30 +318,30 @@ public class SearchParametersFragment extends Fragment
             }
         }
     }
-    /* Aqui empieza la Clase Localizacion */
-    public class Localizacion implements LocationListener
+    /* Here begins the Class Location */
+    public class Localization implements LocationListener
     {
 
+        // This method is executed each time the GPS receives new coordinates due to the
+        // detection of a change of location.
         @Override
         public void onLocationChanged(Location loc) {
-            // Este metodo se ejecuta cada vez que el GPS recibe nuevas coordenadas
-            // debido a la deteccion de un cambio de ubicacion
 
-            startPoint.setLatitude(loc.getLatitude());
-            startPoint.setLongitude(loc.getLongitude());
+            startPoint.setLatitude(loc.getLatitude());// It gets and stores the current latitude in startPoint object
+            startPoint.setLongitude(loc.getLongitude());// It gets and stores the current longitude in startPoint object
             setLocation(loc);
             getNodes();
         }
 
         @Override
         public void onProviderDisabled(String provider) {
-            // Este metodo se ejecuta cuando el GPS es desactivado
+            // This method is executed when the GPS is deactivated
             Toast.makeText(getActivity(), "GPS Desactivado", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onProviderEnabled(String provider) {
-            // Este metodo se ejecuta cuando el GPS es activado
+            // This method is executed when the GPS is activated
             Toast.makeText(getActivity(), "GPS Activado", Toast.LENGTH_LONG).show();
         }
 
@@ -339,7 +361,8 @@ public class SearchParametersFragment extends Fragment
         }
     }
     /**
-     * Método que llena el spinner de activity
+     * This method load the list of nodes contained in the database in the LinkedList nodes.
+     * For that, it consumes a Web API.
      * */
     public void getNodes()
     {
@@ -378,7 +401,7 @@ public class SearchParametersFragment extends Fragment
                                 catch(Exception e){}
                                 filterByDistance();
                             }//Fin del método onResponse
-                        }, //Fin de la clase interna anonima
+                        },
                         new Response.ErrorListener()
                         {
                             @Override
@@ -386,10 +409,13 @@ public class SearchParametersFragment extends Fragment
                             {
                                 label.setText(error.toString());
                             }//Fin del método que se ejecuta si ocurre un error
-                        }//Fin de la clase interna anonima
+                        }
                 );
         addToQueue(request);
     }
+    /**
+     * This method filter the nodes that is in the range of distance and duration from the start point..
+     * */
     public void filterByDistance()
     {
         LinkedList<Node> nodesDistanceAndDuration = new LinkedList<Node>();
@@ -421,6 +447,9 @@ public class SearchParametersFragment extends Fragment
         }
         filterByEuclides(nodesDistanceAndDuration);
     }
+    /**
+     *This method filter the nodes that have the less distance than the others according the Euclid's method.
+     * */
     public void filterByEuclides(LinkedList<Node> nodesList)
     {
         //Se obtienen los datos suministrados por el estudiante
@@ -455,6 +484,9 @@ public class SearchParametersFragment extends Fragment
         nodesForRoutesList.cut(20);
         orderByDistance(nodesForRoutesList);
     }
+    /**
+     * This method sorts the nodes in the list according the distance from the start point.
+     * */
     public void orderByDistance(MyLinkedList nodesList)
     {
         MyLinkedList nodesOrderByDistance = new MyLinkedList();
@@ -476,6 +508,9 @@ public class SearchParametersFragment extends Fragment
         }
         divNodesIntoFourRoutes(nodesOrderByDistance);
     }
+    /**
+     * This method divide the list of nodes in 4 subroutes.
+     * */
     public void divNodesIntoFourRoutes(MyLinkedList finalNodes)
     {
         MyLinkedList northwestRoute = new MyLinkedList();
@@ -503,6 +538,7 @@ public class SearchParametersFragment extends Fragment
                 }
         }
 
+        mlocManager.removeUpdates(local);
         SelectRouteFragment fragment = new SelectRouteFragment();
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.contenedor, fragment).addToBackStack(null).commit();
@@ -515,7 +551,7 @@ public class SearchParametersFragment extends Fragment
         fragment.setArguments(data);
     }
     /**
-     * Método que manda a ejecutar las solicitudes
+     *The method that executes the requests.
      * */
     public void addToQueue(Request request)
     {

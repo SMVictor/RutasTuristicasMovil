@@ -60,12 +60,12 @@ public class MainActivity extends AppCompatActivity
 
         this.navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        //se carga el fragment principal en el contenedor del mainActivity
 
-        //Inicializamos las variables necesarias para consumir Web API
+        //It is initialized the necessary variables to consume the Web API
         this.volley = VolleyS.getInstance(this);
         this.fRequestQueue = volley.getRequestQueue();
 
+        //It is loaded the principal fragment in the container of the main activity.
         fragmentManager.beginTransaction().replace(R.id.contenedor, new PrincipalFragment()).addToBackStack(null).commit();
     }
 
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        //It is loaded the corresponding fragment that must handle the request of the user.
         switch (id){
 
             case R.id.home:
@@ -139,11 +140,15 @@ public class MainActivity extends AppCompatActivity
             case R.id.logout:
                 if(this.session)
                 {
+                    /*
+                    *In case that the user logs out, we set the profile photo and username with
+                    * the default, and we change the session variable to false.
+                    */
                     View hView = navigationView.getHeaderView(0);
                     TextView tvUserNameHeader = (TextView)hView.findViewById(R.id.tvUserNameHeader);
                     ImageView ivUserNameHeader = (ImageView) hView.findViewById(R.id.ivUserNameHeader);
-                    ivUserNameHeader.setImageResource(R.drawable.logo);// Cargar foto del hosting
-                    tvUserNameHeader.setText("Usuario");//sustituir a Sophia por userName
+                    ivUserNameHeader.setImageResource(R.drawable.logo);
+                    tvUserNameHeader.setText("Usuario");
                     session = false;
                     fragmentManager.beginTransaction().replace(R.id.contenedor, new PrincipalFragment()).addToBackStack(null).commit();
                     Toast.makeText(getApplicationContext(), "Hasta Luego", Toast.LENGTH_LONG).show();
@@ -154,7 +159,8 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
             case R.id.recommended_routes:
-                if(!session)
+
+                if(!session)// Represent that the session variable is "false", because the user has not logged in.
                 {
                     fragmentManager.beginTransaction().replace(R.id.contenedor, new LoginFragment()).addToBackStack(null).commit();
                     Toast.makeText(getApplicationContext(), "Debes iniciar sesión", Toast.LENGTH_LONG).show();
@@ -166,11 +172,17 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * This method is responsible for verify that the username and password supplied are congruent
+     * with the data stored in the database. Further, it is responsible for set the profil photo and
+     * username whit correspondig data to the current user, and change the session variable to "true".
+     */
     public void authenticateUser(View view)
     {
         this.tvEmail = (TextView) findViewById(R.id.tvEmail);
         this.tvPassword = (TextView) findViewById(R.id.tvPassword);
 
+        // It is obtained the user with email address supplied
         String url = "http://turritour.000webhostapp.com/api/getuserbyemail/?userEmail="+this.tvEmail.getText();
         JsonArrayRequest request = new JsonArrayRequest
                 (url,
@@ -192,6 +204,7 @@ public class MainActivity extends AppCompatActivity
                                 }
                                 catch(Exception e){}
 
+                                //It is verified that the user address exists.
                                 if(!users.isEmpty())
                                 {
                                     JSONObject jsonObject = (JSONObject) users.get(0);
@@ -199,16 +212,21 @@ public class MainActivity extends AppCompatActivity
                                     String userName = jsonObject.optString("name");
                                     String password = tvPassword.getText()+"";
 
+                                    //It is verified that the user password is ok.
                                     if(userPassword.equals(password))
                                     {
                                         View hView = navigationView.getHeaderView(0);
                                         TextView tvUserNameHeader = (TextView)hView.findViewById(R.id.tvUserNameHeader);
+
+                                        //it is changed the profile photo and username in the navigation bar.
                                         try {
                                             Glide.with(getApplicationContext()).load(jsonObject.optString("profilphoto")).into((ImageView) hView.findViewById(R.id.ivUserNameHeader));
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
-                                        tvUserNameHeader.setText(userName);//sustituir a Sophia por userName
+                                        tvUserNameHeader.setText(userName);
+
+                                        // it is changed the session variable to true
                                         session = true;
                                         fragmentManager.popBackStack();
                                         Toast.makeText(getApplicationContext(), "Bienvenido "+userName, Toast.LENGTH_LONG).show();
