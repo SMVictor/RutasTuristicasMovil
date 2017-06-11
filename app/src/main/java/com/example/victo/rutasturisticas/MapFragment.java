@@ -41,6 +41,7 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
     protected RequestQueue fRequestQueue;
     private MyLinkedList route;
     private StartPoint startPoint;
+    private String urlAPIDirections;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,11 +53,17 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
         fRequestQueue = volley.getRequestQueue();
         getMapAsync(this);
 
-        // this.idActivity = getArguments().getInt("idActivity");
-
-        //We obtain the routes to be drawn. In addition, the latitude and longitude of the startpoint
+        //Se obtienen las coordenadas de la ruta a dibujar y de la coordenada inicial.
         route = (MyLinkedList) getArguments().getSerializable("route");
         startPoint = (StartPoint) getArguments().getSerializable("startpoint");
+
+        //Se verifica que la lista no esté vacía.
+        if(route.size() > 0)
+        {
+            this.urlAPIDirections = "https://maps.googleapis.com/maps/api/directions/json?origin="+startPoint.getLatitude()+
+                    ","+startPoint.getLongitude()+"&destination="+route.getNode((route.size()-1)).node.getLatitude()+
+                    ","+route.getNode((route.size()-1)).node.getLongitude();
+        }//Fin del if
         return  rootView;
     }//Fin del método onCreateView
 
@@ -65,23 +72,34 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
     {
         this.mMap = googleMap;
         this.mMap.setOnMarkerClickListener
-            (
-                new GoogleMap.OnMarkerClickListener()
-                {
-                    @Override
-                    public boolean onMarkerClick(Marker marker)
-                    {
-                        Integer count = (Integer) marker.getTag();
-                        NodeFragment fragment = new NodeFragment();
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.contenedor, fragment).addToBackStack(null).commit();
-                        return false;
-                    }//Fin del método onMarkerClick
-                }//Fin de la clase Interna Anonima
-            );
+                (
+                        new GoogleMap.OnMarkerClickListener()
+                        {
+                            @Override
+                            public boolean onMarkerClick(Marker marker)
+                            {
+                                //Obtenemos el identificador del nodo
+                                Integer idNode = (Integer) marker.getTag();
+
+                                //Verifica si el id del nodo es diferente a cero
+                                if(idNode != 0)
+                                {
+                                    NodeFragment fragment = new NodeFragment();
+                                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                    fragmentManager.beginTransaction().replace(R.id.contenedor, fragment).addToBackStack(null).commit();
+                                }//Fin del if
+                                return false;
+                            }//Fin del método onMarkerClick
+                        }//Fin de la clase Interna Anonima
+                );
         this.setInitialLocationMap(); //Establece la posición inicial
-        this.setPointsInMap();
-        this.createRoute();
+
+        //Se verifica que la lista no esté vacía.
+        if(route.size() > 0)
+        {
+            this.setPointsInMap();
+            this.createRoute();
+        }//Fin del if
     }//Fin del método
 
 
@@ -95,7 +113,7 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
         this.mMap.addMarker(new MarkerOptions()
                 .position(initialPosition)
                 .title(this.startPoint.getName())
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).setTag(0);
         this.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPosition,13));
     }//Fin del método setInitialLocationMap
 
@@ -104,28 +122,29 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
      * */
     public void setPointsInMap()
     {
-        for(int i = 0; i < route.size(); i++)
+        //Se pregunta si la ruta posee paradas
+        if(route.size() > 1)
+        {
+            this.urlAPIDirections += "&waypoints=";
+
+            for(int i = 0; i < route.size(); i++)
+            {
+                this.mMap.addMarker(new MarkerOptions()
+                        .title(route.getNode(i).node.getName())
+                        .position(new LatLng(route.getNode(i).node.getLatitude(),route.getNode(i).node.getLongitude())))
+                        .setTag(route.getNode(i).node.getId());
+                this.urlAPIDirections += route.getNode(i).node.getLatitude() + "," + route.getNode(i).node.getLongitude();
+                if(i == (route.size()-1)){this.urlAPIDirections += "|";}
+            }//Fin del for
+        }//Fin del if
+        else
         {
             this.mMap.addMarker(new MarkerOptions()
-                    .title(route.getNode(i).node.getName())
-                    .position(new LatLng(route.getNode(i).node.getLatitude(),route.getNode(i).node.getLongitude()))).setTag(i);
-        }
-        /*
-        //Creamos las coordenadas
-        LatLng marta  = new LatLng(9.786,-83.691);
-        LatLng guayabo  = new LatLng(9.9727991,-83.6908688);
-        LatLng museo  = new LatLng(9.9013114,-83.672462);
-
-        //Agregamos los marcadores
-        this.mMap.addMarker(new MarkerOptions()
-                .title("Monumento Nacional Guayabo")
-                .position(guayabo)).setTag(1);
-        this.mMap.addMarker(new MarkerOptions()
-                .title("Refugio de Vida Silvestre La Marta")
-                .position(marta)).setTag(2);
-        this.mMap.addMarker(new MarkerOptions()
-                .title("Museo Omar Salazar Obando")
-                .position(museo)).setTag(3);*/
+                    .title(route.getNode(0).node.getName())
+                    .position(new LatLng(route.getNode(0).node.getLatitude(),route.getNode(0).node.getLongitude())))
+                    .setTag(route.getNode(0).node.getId());
+        }//Fin del else
+        this.urlAPIDirections += "&key=AIzaSyDAJR9mkRkdrTsO5yjbBaGQxPjOzXuyfUQ";
     }//Fin del método setPointsInMap
 
     /**
@@ -136,7 +155,7 @@ public class MapFragment extends SupportMapFragment  implements OnMapReadyCallba
         String url = "https://maps.googleapis.com/maps/api/directions/json?origin=9.878132,-83.635680&destination=9.9727991,-83.6908688&waypoints=9.9013114,-83.672462&key=AIzaSyDAJR9mkRkdrTsO5yjbBaGQxPjOzXuyfUQ";
 
         JsonObjectRequest request = new JsonObjectRequest
-            (Request.Method.GET, url, "",
+            (Request.Method.GET, this.urlAPIDirections, "",
                     new Response.Listener<JSONObject>()
                     {
                         @Override
