@@ -14,13 +14,18 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/logo" />
+            android:background="@drawable/logo"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="28dp"
+            android:layout_marginStart="28dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="150dp"
             android:layout_below="@+id/imageView2"
+            android:layout_marginBottom="150dp"
             android:layout_marginTop="14dp"
             android:orientation="horizontal">
 
@@ -28,9 +33,9 @@
                 android:id="@+id/videoView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/imageView2"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/imageView2" />
 
         </LinearLayout>
 
@@ -38,31 +43,31 @@
             android:id="@+id/btnRutasTuristicas"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="0.00"
-            android:text="Generar Rutas"
-            android:textColor="@color/common_google_signin_btn_text_dark_pressed"
-            android:textSize="18sp"
-            android:background="@color/colorPrimaryDark"
-            android:elevation="10dp"
-            android:textStyle="bold|italic"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="21dp" />
+            android:layout_marginBottom="21dp"
+            android:layout_weight="0.00"
+            android:background="@color/colorPrimaryDark"
+            android:elevation="10dp"
+            android:text="Generar Rutas"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+            android:textSize="18sp"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/btnRutasTuristicas"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_marginBottom="21dp"
+            android:text="Costa Rica es un viaje, Turrialba es aventura"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp"
-            android:textStyle="normal|bold|italic"
-            android:text="Costa Rica es un viaje, Turrialba es aventura"
-            android:layout_above="@+id/btnRutasTuristicas"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:textStyle="normal|bold|italic" />
 
     </RelativeLayout>
 </FrameLayout>
