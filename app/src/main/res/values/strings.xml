@@ -65,9 +65,9 @@
     <string name="btn_support">Soporte</string>
 
     <!-- String relacionados a la información de un nodo -->
-    <string name="name_node">El Ajonjoli</string>
+    <string name="name_node">Hotel Green Mountain and Lodge</string>
     <string name="slogan_node">“Las Mejores Hamburguesas de Turrialba”</string>
-    <string name="description_node">Cuenta con las mejores ha…ta, ingredientes frescos</string>
+    <string name="description_node">Cuenta con las mejores hamburguesas de la puta, ingredientes frescos</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

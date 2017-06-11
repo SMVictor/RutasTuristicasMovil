@@ -5,24 +5,122 @@
     android:layout_height="match_parent"
     tools:context="com.example.victo.rutasturisticas.NodeFragment">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
 
-        <TextView
-            android:id="@+id/textViewName"
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/name_node"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
+                android:textStyle="normal|bold"
+                />
+            <!-- Contiene el logo, y el slogan -->
+            <GridLayout
+                android:id="@+id/GridLayoutSlogan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewName"
+                android:layout_marginTop="3dp">
+
+                <ImageView
+                    android:id="@+id/imageViewLogo"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:srcCompat="@drawable/facebook" />
+
+                <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/colorAccent">
+
+                    <TextView
+                        android:id="@+id/textViewSlogan"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="5dp"
+                        android:maxWidth="150dp"
+                        android:text="@string/slogan_node"
+                        android:textColor="@color/white_text"
+                        android:textSize="20sp"
+                        android:textStyle="normal|italic" />
+                </GridLayout>
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/textViewDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/GridLayoutSlogan"
+                android:text="@string/description_node"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                />
+
+            <ImageView
+                android:id="@+id/imageNode"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_below="@+id/textViewDescription"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:scaleType="fitCenter"
+                android:visibility="visible"
+                app:srcCompat="@drawable/foto" />
+
+            <!-- Contiene las redes sociales -->
+            <GridLayout
+                android:id="@+id/GridLayoutSocialNetwork"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageNode"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="40dp"
+                >
+                <ImageButton
+                    android:id="@+id/imageButtonFacebook"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/facebook"
+                    />
+                <ImageButton
+                    android:id="@+id/imageButtonInternet"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/internet"
+                    />
+            </GridLayout>
+        </RelativeLayout>
+<!--        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:layout_marginTop="3dp"
-            android:text="@string/name_node"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
-            android:textStyle="normal|bold" />
-    </RelativeLayout>
+            android:orientation="vertical" />-->
+    </ScrollView>
 </FrameLayout>
