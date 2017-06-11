@@ -88,6 +88,10 @@ public class SearchParametersFragment extends Fragment
         typeActivitiesList = new LinkedList<TypeActivity>();
         startPoint = new StartPoint();
         startsPoints = new LinkedList<StartPoint>();
+        // LocationListener Manager
+        mlocManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        //Lacation Listeber Object
+        local = new Localization();
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> maxDistanceAdapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),
@@ -268,12 +272,6 @@ public class SearchParametersFragment extends Fragment
    */
     private void locationStart()
     {
-
-        // LocationListener Manager
-        mlocManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        //Lacation Listeber Object
-        local = new Localization();
-
         //It is verified if the user grants the permissions necessary to use her/his current position.
         final boolean gpsEnabled = mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (!gpsEnabled) {
