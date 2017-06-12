@@ -47,7 +47,6 @@ import java.util.Locale;
 
 public class SearchParametersFragment extends Fragment
 {
-
     private TextView label;
     private VolleyS volley;
     protected RequestQueue fRequestQueue;
@@ -130,7 +129,6 @@ public class SearchParametersFragment extends Fragment
 
         return view;
     }
-
     /*
     *The next two methods it are responsible for load the spinners of the types activities
     * and start points respectively.
@@ -471,7 +469,7 @@ public class SearchParametersFragment extends Fragment
 
             float nodeDistance = locationA.distanceTo(locationB);
             nodeDistance /= 1000;
-            float nodeDuration = (distance/40)*60;
+            float nodeDuration = (nodeDistance/40)*60;
 
             // Se aplica la fórmula de distancia euclidiana para obtener la distancia con el registro actual de la base de datos
             double newNodeDistance = Math.sqrt(Math.pow((distance-nodeDistance), 2)+Math.pow((duration-nodeDuration), 2)+Math.pow(( getTypeActivityValue(typeActivity)-node.getTypeActivity().getId()), 2)+Math.pow((getCostValue(cost)-getCostValue(node.getCost())), 2));
