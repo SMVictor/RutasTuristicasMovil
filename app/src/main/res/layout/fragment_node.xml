@@ -23,7 +23,6 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
-                android:text="@string/name_node"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="24sp"
@@ -41,7 +40,7 @@
                     android:id="@+id/imageViewLogo"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    app:srcCompat="@drawable/facebook" />
+                    />
 
                 <GridLayout
                     android:layout_width="wrap_content"
@@ -60,7 +59,6 @@
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="5dp"
                         android:maxWidth="150dp"
-                        android:text="@string/slogan_node"
                         android:textColor="@color/white_text"
                         android:textSize="20sp"
                         android:textStyle="normal|italic" />
@@ -75,7 +73,6 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
                 android:layout_below="@+id/GridLayoutSlogan"
-                android:text="@string/description_node"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -91,7 +88,7 @@
                 android:layout_marginTop="5dp"
                 android:scaleType="fitCenter"
                 android:visibility="visible"
-                app:srcCompat="@drawable/foto" />
+                />
 
             <!-- Contiene las redes sociales -->
             <GridLayout
@@ -118,9 +115,5 @@
                     />
             </GridLayout>
         </RelativeLayout>
-<!--        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />-->
     </ScrollView>
 </FrameLayout>

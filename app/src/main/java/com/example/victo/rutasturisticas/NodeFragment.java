@@ -1,10 +1,14 @@
 package com.example.victo.rutasturisticas;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -13,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.bumptech.glide.Glide;
 import com.example.victo.rutasturisticas.Modules.VolleyS;
 
 import org.json.JSONArray;
@@ -27,8 +32,10 @@ public class NodeFragment extends Fragment
     private View view;
     private VolleyS volley;
     protected RequestQueue fRequestQueue;
-    private TextView nameNode;
+    private TextView nameNode, sloganNode, descriptionNode;
     private int idNode;
+    private String urlFacebook, urlInternet;
+    private ImageButton btnFacebook,btnInternet;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +49,40 @@ public class NodeFragment extends Fragment
 
         //Se recuperan los elementos de la vista
         this.nameNode = (TextView) view.findViewById(R.id.textViewName);
+        this.sloganNode = (TextView) view.findViewById(R.id.textViewSlogan);
+        this.descriptionNode = (TextView) view.findViewById(R.id.textViewDescription);
+        this.btnFacebook = (ImageButton) view.findViewById(R.id.imageButtonFacebook);
+        this.btnInternet = (ImageButton) view.findViewById(R.id.imageButtonInternet);
+
+        // Se agrega el evento al botón de facebook
+        this.btnFacebook.setOnClickListener
+        (
+            new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    Uri facebook = Uri.parse(urlFacebook);
+                    Intent intent = new Intent(Intent.ACTION_VIEW,facebook);
+                    startActivity(intent);
+                }
+            }
+        );
+
+        //Se agrega el evento al botón de Internet
+        this.btnInternet.setOnClickListener
+        (
+                new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        Uri internet = Uri.parse(urlInternet);
+                        Intent intent = new Intent(Intent.ACTION_VIEW,internet);
+                        startActivity(intent);
+                    }
+                }
+        );
 
         //Se llenan los campos
         this.fillInformation();
@@ -70,6 +111,21 @@ public class NodeFragment extends Fragment
                                     {
                                         JSONObject jsonObject = response.getJSONObject(i);
                                         nameNode.setText(jsonObject.optString("name"));
+                                        sloganNode.setText(jsonObject.optString("slogan"));
+                                        descriptionNode.setText(jsonObject.optString("information"));
+                                        urlFacebook = jsonObject.optString("urlfacebook");
+                                        urlInternet = jsonObject.optString("urlweb");
+
+                                        //Se cargan las imágenes
+                                        try
+                                        {
+                                            Glide.with(NodeFragment.this).load(jsonObject.optString("pathlogo")).into((ImageView) view.findViewById(R.id.imageViewLogo));
+                                            Glide.with(NodeFragment.this).load(jsonObject.optString("pathvideoimage")).into((ImageView) view.findViewById(R.id.imageNode));
+                                        } //Fin del try
+                                        catch (Exception e)
+                                        {
+                                            e.printStackTrace();
+                                        } //Fin del catch
                                     }//Fin del for
                                 }
                                 catch(Exception e){}
