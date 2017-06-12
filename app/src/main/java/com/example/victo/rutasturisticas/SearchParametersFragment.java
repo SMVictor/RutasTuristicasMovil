@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +36,6 @@ import com.example.victo.rutasturisticas.Domain.StartPoint;
 import com.example.victo.rutasturisticas.Domain.TypeActivity;
 import com.example.victo.rutasturisticas.Modules.VolleyS;
 import com.example.victo.rutasturisticas.Utilities.MyLinkedList;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -77,7 +75,7 @@ public class SearchParametersFragment extends Fragment
         view = inflater.inflate(R.layout.fragment_search_parameters, container, false);
 
         //It is obtained the variables supplied through the user interface.
-        label = (TextView) view.findViewById(R.id.textView8);
+        label = (TextView) view.findViewById(R.id.Tipo);
         btnSelectRoutes = (Button) view.findViewById(R.id.btnSelectRoutes);
         spStartPoint = (Spinner) view.findViewById(R.id.spStartPoint);
         spTypesActivities = (Spinner) view.findViewById(R.id.spTypeActivity);
